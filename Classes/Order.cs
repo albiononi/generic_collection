@@ -6,44 +6,47 @@ namespace generic_collection.Classes
 {
     public class Order
     {
-        // Räknar upp ID för varje ny beställning
-        // static gör att alla beställningar delar samma räknare
+        // Här börjar räknaren på 1. static gör att alla ordrar
+        // delar samma räknare och får olika ID.
         static int orderIdCounter = 1;
 
-        // Sparar beställningens ID
+        // Sparar ID-numret för just den här beställningen.
         private int _orderId;
 
-        // List<MenuItem> är en lista som bara innehåller MenuItem-objekt
-        // Vi använder den eftersom en order kan ha flera maträtter
+        // Här sparas maträtterna som hör till ordern.
+        // Jag använder List<MenuItem> eftersom en order kan ha flera rätter.
         private List<MenuItem> _orderItems;
 
-        // Sparar vilket bord som gjorde beställningen
+        // Sparar vilket bord som gjort beställningen.
         private int _tableNumber;
 
-        // Konstruktorn skapar en beställning
-        // Den tar emot en lista med maträtter och ett bordsnummer
+        // Här tar jag emot listan med maträtter och bordsnumret
+        // när en ny beställning skapas i Program.cs.
         public Order(List<MenuItem> orderItems, int tableNumber)
         {
-            // Ger beställningen ett ID och ökar räknaren
+            // Ger ordern ett ID från räknaren.
             _orderId = orderIdCounter;
+            // Ökar räknaren så nästa order får ett nytt ID.
             orderIdCounter++;
 
-            // Sparar listan med maträtter och bordsnumret
+            // Här sparar jag maträtterna och bordet i ordern
+            // så vi kan visa informationen senare.
             _orderItems = orderItems;
             _tableNumber = tableNumber;
         }
 
-        // Visar information om en beställning
+        // Den här metoden visar vilken order det är, bordet
+        // och maträtterna som kunden har beställt.
         public void ShowOrder()
         {
             Console.WriteLine("Order ID: " + _orderId);
             Console.WriteLine("Bord: " + _tableNumber);
 
-            // foreach går igenom alla maträtter i vår List
-            // item är en maträtt i taget från listan
+            // Här går foreach igenom maträtterna en i taget
+            // så att alla rätter i beställningen skrivs ut.
             foreach (MenuItem item in _orderItems)
             {
-                // Skriver ut maträtten med hjälp av ToString
+                // Här används MenuItems ToString för att visa namn och pris.
                 Console.WriteLine(item);
             }
         }

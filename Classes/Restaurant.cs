@@ -6,35 +6,32 @@ namespace generic_collection.Classes
 {
     public class Restaurant
     {
-        // List<MenuItem> skapar en lista med maträtter
-        // MenuItem betyder att listan bara kan innehålla maträtter
-        // Vi använder List eftersom vi vill kunna lägga till flera rätter
+        // Här skapar jag en lista för alla rätter i restaurangens meny.
+        // List<MenuItem> gör att listan bara innehåller maträtter.
         private List<MenuItem> menu = new List<MenuItem>();
 
-        // Queue<Order> skapar en kö för våra beställningar
-        // Order betyder att kön bara innehåller beställningar
-        // Queue använder FIFO (First In, First Out)
-        // Det betyder att första beställningen in hanteras först
+        // Här skapar jag kön där beställningarna ska vänta.
+        // Queue<Order> använder FIFO, alltså första ordern in hanteras först.
         private Queue<Order> orderQueue = new Queue<Order>();
 
 
-        // Lägger till en ny maträtt i menyn
+        // Här tar jag emot en maträtt från Program.cs
+        // och lägger in den i restaurangens meny.
         public void AddtoMenu(MenuItem menuItem)
         {
-            // Add lägger till maträtten i vår List
+            // Add sparar maträtten i listan så vi kan visa den senare.
             menu.Add(menuItem);
 
             Console.WriteLine("Tillagd i menyn: " + menuItem);
         }
 
 
-        // Skriver ut alla maträtter i menyn
+        // Här visar jag alla maträtter som lagts till i menyn.
         public void ShowMenu()
         {
             Console.WriteLine("\n--- MENY ---");
 
-            // foreach går igenom listan, en maträtt i taget
-            // item är den maträtt vi är på just nu
+            // foreach går igenom listan och skriver ut en rätt i taget.
             foreach (MenuItem item in menu)
             {
                 Console.WriteLine(item);
@@ -42,27 +39,28 @@ namespace generic_collection.Classes
         }
 
 
-        // Lägger till en ny beställning i kön
+        // Här tar jag emot en beställning och lägger den i kön.
         public void CreateOrder(Order order)
         {
-            // Enqueue lägger beställningen SIST i vår Queue
-            // På så sätt hanteras äldre beställningar före nya
+            // Enqueue lägger ordern sist i kön så att de äldre
+            // beställningarna får hanteras före den nya.
             orderQueue.Enqueue(order);
 
             Console.WriteLine("\nNy beställning tillagd:");
+            // Visar information om beställningen vi precis lagt till.
             order.ShowOrder();
         }
 
 
-        // Hanterar den första beställningen i kön
+        // Här ska jag hantera den order som står först i kön.
         public void HandleOrder()
         {
-            // Count visar hur många beställningar som finns
-            // Vi kontrollerar att kön inte är tom innan vi tar bort något
+            // Jag kontrollerar med Count att det finns en order i kön,
+            // annars skulle Dequeue ge ett fel om kön är tom.
             if (orderQueue.Count > 0)
             {
-                // Dequeue tar ut och tar bort FÖRSTA beställningen
-                // Vi sparar den i order för att kunna visa den
+                // Dequeue hämtar och tar bort den första ordern.
+                // Jag sparar den i order så jag kan visa vad som hanterats.
                 Order order = orderQueue.Dequeue();
 
                 Console.WriteLine("\nHanterar beställning:");
@@ -70,19 +68,18 @@ namespace generic_collection.Classes
             }
             else
             {
-                // Om kön är tom finns inget att hantera
                 Console.WriteLine("Det finns inga beställningar.");
             }
         }
 
 
-        // Visar alla beställningar som finns kvar i kön
+        // Den här metoden visar ordrarna som fortfarande väntar.
         public void ShowOrders()
         {
             Console.WriteLine("\n--- AKTUELLA BESTÄLLNINGAR ---");
 
-            // foreach går igenom varje order i vår Queue
-            // Den visar beställningarna utan att ta bort dem
+            // Här går jag igenom alla beställningar med foreach.
+            // ShowOrder visar varje order utan att ta bort den från kön.
             foreach (Order order in orderQueue)
             {
                 order.ShowOrder();
@@ -91,14 +88,13 @@ namespace generic_collection.Classes
         }
 
 
-        // Visar beställningen som står först i kön
+        // Här vill jag se vilken beställning som står näst på tur.
         public void ShowNextOrder()
         {
-            // Kontrollerar att det finns minst en beställning
             if (orderQueue.Count > 0)
             {
-                // Peek hämtar första beställningen UTAN att ta bort den
-                // Till skillnad från Dequeue finns ordern kvar i kön
+                // Peek hämtar första ordern utan att ta bort den.
+                // Då kan vi se nästa beställning utan att ändra kön.
                 Order order = orderQueue.Peek();
 
                 Console.WriteLine("\nNästa beställning:");
@@ -111,11 +107,10 @@ namespace generic_collection.Classes
         }
 
 
-        // Visar antalet beställningar i kön
+        // Här visar jag hur många beställningar som finns kvar.
+        // Count ändras när vi lägger till eller tar bort en order.
         public void ShowOrderCount()
         {
-            // Count räknar hur många beställningar som finns just nu
-            // Antalet ändras när vi använder Enqueue eller Dequeue
             Console.WriteLine("\nAntal beställningar i kön: " + orderQueue.Count);
         }
     }

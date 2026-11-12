@@ -6,13 +6,14 @@ namespace generic_collection.Classes
 {
     public class MenuItem
     {
-        // Egenskaper som varje maträtt har
-        // get hämtar värdet och set ändrar det
+        // Här sparas maträttens ID, namn och pris.
+        // get hämtar värdet och set gör att vi kan ändra det.
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
 
-        // Konstruktorn tar emot och sparar maträttens information
+        // Här tar konstruktorn emot informationen när en maträtt skapas.
+        // Värdena sparas så restaurangen kan använda dem i menyn.
         public MenuItem(int id, string name, decimal price)
         {
             Id = id;
@@ -20,8 +21,8 @@ namespace generic_collection.Classes
             Price = price;
         }
 
-        // Bestämmer hur maträtten ska visas som text
-        // :C gör att priset visas som valuta
+        // Här bestämmer jag hur maträtten ska skrivas ut.
+        // override ändrar ToString och :C visar priset som valuta.
         public override string ToString()
         {
             return $"{Name} - {Price:C}";
